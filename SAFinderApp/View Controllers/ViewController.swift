@@ -8,12 +8,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    // MARK: - Outlets
+    @IBOutlet weak var tableView: UITableView!
+    
+    
+    // MARK: - View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        tableView.delegate = self 
     }
 
 
 }
 
+// MARK: - Extensions
+extension ViewController: UITableViewDelegate{
+    
+}
