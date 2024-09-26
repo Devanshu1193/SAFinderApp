@@ -23,10 +23,10 @@ struct Accommodation: Codable, Hashable{
     var phone_number: String
     var description: String
     
-    func getImage() -> String? {
-        if image == nil {
-            return nil
-        }
-        return "https://dsuthar.scweb.ca/ios/api.json?\(image!)"
-    }
+//    func getImage() -> String? {
+//        if image == nil {
+//            return nil
+//        }
+//        return "https://dsuthar.scweb.ca/ios/api.json?\(image!)"
+//    }
 }
