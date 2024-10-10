@@ -114,10 +114,10 @@
             </objects>
             <point key="canvasLocation" x="1066.4122137404579" y="-2.1126760563380285"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="bKA-GL-fQE">
             <objects>
-                <viewController id="zkX-Kx-Olr" sceneMemberID="viewController">
+                <viewController id="zkX-Kx-Olr" customClass="DetailViewController" customModule="SAFinderApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BRu-LA-0GL">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -162,7 +162,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VVX-z1-sKk" userLabel="Address">
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VVX-z1-sKk" userLabel="Rent">
                                                         <rect key="frame" x="112" y="0.0" width="261" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -238,6 +238,14 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="Q5y-pm-PH2"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addressTextField" destination="uV6-oO-ioI" id="bT6-8B-vzn"/>
+                        <outlet property="contactNumberTextField" destination="jzE-nN-gqE" id="uRm-cH-59e"/>
+                        <outlet property="descriptionTextField" destination="cDT-d2-IN4" id="rRr-TQ-Ll9"/>
+                        <outlet property="favouriteButton" destination="Q5y-pm-PH2" id="zkD-uq-tfZ"/>
+                        <outlet property="houseImageView" destination="0nz-qd-E8L" id="r26-eY-RV5"/>
+                        <outlet property="rentTextField" destination="VVX-z1-sKk" id="5Jl-4c-480"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="juA-Qh-ogZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
