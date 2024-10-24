@@ -22,4 +22,5 @@ struct Accommodation: Codable, Hashable{
     var rent: Double
     var phone_number: String
     var description: String
+
 }

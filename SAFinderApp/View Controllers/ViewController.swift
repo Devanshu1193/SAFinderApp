@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     // MARK: - Properties
     var accommodations : [Accommodation] = []
+    var accommodationStore: AccommodationStore!
     
     
     // MARK: - View Methods
@@ -28,7 +29,7 @@ class ViewController: UIViewController {
             return 
         }
         
-        
+        self.createDataSnapshot()
     }
     
     // MARK: - Loading the images and accmmodation listings
@@ -101,7 +102,18 @@ class ViewController: UIViewController {
         }
         accommodationTask.resume()
     }
+    
 
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let selectedIndex = tableView.indexPathForSelectedRow else { return }
+        let selectedAccommodation = accommodations[selectedIndex.row]
+        
+        let destinationVC = segue.destination as! DetailViewController
+        destinationVC.accommodation = selectedAccommodation
+        destinationVC.accommodationStore = self.accommodationStore
+    }
+    
 
 }
 
