@@ -25,7 +25,27 @@ class DetailViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func saveChanges(_ sender: UIButton) {
+        guard let accommodation = accommodation else { return }
         
+        App.accommodationStore.removeHouse(house: accommodation)
+        
+        guard let rent = Double(rentTextField.text ?? "0") else {
+            return
+        }
+        
+        let newAccommodation = Accommodation(
+            id: accommodation.id,
+            image: accommodation.image,
+            address: addressTextField.text ?? "",
+            rent: rent,
+            phone_number: contactNumberTextField.text ?? "",
+            description: descriptionTextField.text ?? ""
+        )
+        
+        App.accommodationStore.addNewHouse(house: newAccommodation)
+        App.accommodationStore.saveHouses()
+        
+        navigationController?.popViewController(animated: true)
     }
     
     
