@@ -14,14 +14,14 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var rentTextField: UITextField!
     @IBOutlet weak var contactNumberTextField: UITextField!
-    @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet weak var saveChangesButton: UIButton!
     @IBOutlet weak var favouriteButton: UIBarButtonItem!
     
     // MARK: - Properties
     var accommodation: Accommodation?
     var passedImage: UIImage?
-    var editInfo = true
+    var editInfo = false
     
     // MARK: - Actions
     @IBAction func saveChanges(_ sender: UIButton) {
@@ -50,6 +50,11 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        descriptionTextField.layer.cornerRadius = 8
+        descriptionTextField.layer.borderWidth = 1
+        descriptionTextField.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.2).cgColor
+        
         addressTextField.delegate = self
         rentTextField.delegate = self
         contactNumberTextField.delegate = self
@@ -76,11 +81,10 @@ class DetailViewController: UIViewController {
         }
         
         if !editInfo {
-            addressTextField.isUserInteractionEnabled = true
-            rentTextField.isUserInteractionEnabled = true
-            contactNumberTextField.isUserInteractionEnabled = true
-            descriptionTextField.isUserInteractionEnabled = true
-//            saveChangesButton.isEnabled = false
+            addressTextField.isUserInteractionEnabled = false
+            rentTextField.isUserInteractionEnabled = false
+            contactNumberTextField.isUserInteractionEnabled = false
+            descriptionTextField.isUserInteractionEnabled = false
             saveChangesButton.isHidden = true
         }
       
@@ -106,9 +110,14 @@ class DetailViewController: UIViewController {
 }
 
 // MARK: - Extension
-extension DetailViewController: UITextFieldDelegate{
+extension DetailViewController: UITextFieldDelegate, UITextViewDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        return true
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        textView.resignFirstResponder()
         return true
     }
 }
