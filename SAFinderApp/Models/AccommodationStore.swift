@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AccommodationStore {
     
@@ -87,5 +88,23 @@ class AccommodationStore {
         retrieve(from: fileURL)
     }
     
+    func fetchImage(withIdentifier id: String) -> UIImage?{
+        if let imagePath = documentDirectory?.appendingPathComponent(id), let imageFromDisk = UIImage(contentsOfFile: imagePath.path){
+            return imageFromDisk
+        }
+         return nil
+    }
    
+    func deleteImage(withIdentifier id: String){
+        guard let documentDirectory = documentDirectory else {
+            return
+        }
+        
+        let fileName = documentDirectory.appendingPathComponent(id)
+        do{
+            try FileManager.default.removeItem(at: fileName)
+        } catch{
+            print("Error deleting - \(error.localizedDescription)")
+        }
+    }
 }

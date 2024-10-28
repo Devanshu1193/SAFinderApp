@@ -111,7 +111,6 @@ class ViewController: UIViewController {
         
         let destinationVC = segue.destination as! DetailViewController
         destinationVC.accommodation = selectedAccommodation
-        destinationVC.accommodationStore = self.accommodationStore
     }
     
 

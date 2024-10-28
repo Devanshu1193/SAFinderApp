@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -89,6 +90,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="O1H-Hw-ywh" kind="relationship" relationship="viewControllers" id="uVd-Yc-q2i"/>
+                        <segue destination="Tlz-P3-XkX" kind="relationship" relationship="viewControllers" id="JAb-0g-PU2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iio-L9-cBT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -126,7 +128,7 @@
                                 <rect key="frame" x="0.0" y="103" width="393" height="617"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Qvo-h5-S8K">
-                                        <rect key="frame" x="10" y="10" width="373" height="526"/>
+                                        <rect key="frame" x="10" y="10" width="373" height="570.33333333333337"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0nz-qd-E8L">
                                                 <rect key="frame" x="0.0" y="0.0" width="373" height="350"/>
@@ -210,6 +212,14 @@
                                                     <constraint firstItem="cDT-d2-IN4" firstAttribute="width" secondItem="imB-gz-UD3" secondAttribute="width" multiplier="0.7" id="39c-PG-o5y"/>
                                                 </constraints>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iH-ij-TR1">
+                                                <rect key="frame" x="0.0" y="536" width="373" height="34.333333333333371"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Save Changes"/>
+                                                <connections>
+                                                    <action selector="saveChanges:" destination="zkX-Kx-Olr" eventType="touchUpInside" id="gfd-jP-yAL"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -235,7 +245,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="AS4-yz-B5z">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="Q5y-pm-PH2"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="Q5y-pm-PH2">
+                            <connections>
+                                <action selector="addToFavourites:" destination="zkX-Kx-Olr" id="Vs2-3W-i28"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -245,15 +259,101 @@
                         <outlet property="favouriteButton" destination="Q5y-pm-PH2" id="zkD-uq-tfZ"/>
                         <outlet property="houseImageView" destination="0nz-qd-E8L" id="r26-eY-RV5"/>
                         <outlet property="rentTextField" destination="VVX-z1-sKk" id="5Jl-4c-480"/>
+                        <outlet property="saveChangesButton" destination="8iH-ij-TR1" id="mMJ-61-3j5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="juA-Qh-ogZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2916.7938931297708" y="-2.1126760563380285"/>
         </scene>
+        <!--Favourites-->
+        <scene sceneID="bY3-s7-eDJ">
+            <objects>
+                <viewController id="mkN-lF-LyK" customClass="FavouriteViewController" customModule="SAFinderApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0db-q2-Gjv">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TDt-gl-oAp">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jZm-7b-5x1">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="favCell" id="8Dv-h2-jcJ" customClass="FavouriteCollectionViewCell" customModule="SAFinderApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="19Q-ol-wJc">
+                                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XwS-sb-AbX">
+                                                    <rect key="frame" x="5" y="5" width="118" height="118"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="XwS-sb-AbX" secondAttribute="bottom" constant="5" id="2lT-GS-Hee"/>
+                                                <constraint firstItem="XwS-sb-AbX" firstAttribute="top" secondItem="19Q-ol-wJc" secondAttribute="top" constant="5" id="Vjl-Je-oGr"/>
+                                                <constraint firstItem="XwS-sb-AbX" firstAttribute="leading" secondItem="19Q-ol-wJc" secondAttribute="leading" constant="5" id="nsX-1i-uom"/>
+                                                <constraint firstAttribute="trailing" secondItem="XwS-sb-AbX" secondAttribute="trailing" constant="5" id="xHR-9H-PeU"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="houseImageViewCell" destination="XwS-sb-AbX" id="IRh-AL-PRq"/>
+                                            <segue destination="zkX-Kx-Olr" kind="show" id="3Ft-s8-bhX"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gvh-29-b5I"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gvh-29-b5I" firstAttribute="bottom" secondItem="TDt-gl-oAp" secondAttribute="bottom" id="5zG-Zt-f6q"/>
+                            <constraint firstItem="TDt-gl-oAp" firstAttribute="top" secondItem="gvh-29-b5I" secondAttribute="top" id="Sg0-Sq-6ef"/>
+                            <constraint firstItem="TDt-gl-oAp" firstAttribute="leading" secondItem="gvh-29-b5I" secondAttribute="leading" id="TTu-q5-bfN"/>
+                            <constraint firstItem="gvh-29-b5I" firstAttribute="trailing" secondItem="TDt-gl-oAp" secondAttribute="trailing" id="azq-9P-1Tm"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Favourites" id="ONP-bp-WUm"/>
+                    <connections>
+                        <outlet property="favCollectionView" destination="TDt-gl-oAp" id="1bH-AG-xtR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nst-kQ-Dil" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1588.5496183206105" y="742.95774647887333"/>
+        </scene>
+        <!--Favourites-->
+        <scene sceneID="oVI-PN-P2k">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Tlz-P3-XkX" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favourites" image="heart.fill" catalog="system" id="ewK-Nn-9tU"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2FV-Sd-efr">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mkN-lF-LyK" kind="relationship" relationship="rootViewController" id="mXB-4D-Mjg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e1a-4u-MjZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="661.83206106870227" y="742.95774647887333"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="3Ft-s8-bhX"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
