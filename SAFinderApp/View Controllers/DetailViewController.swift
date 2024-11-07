@@ -18,6 +18,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var saveChangesButton: UIButton!
     @IBOutlet weak var favouriteButton: UIBarButtonItem!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     // MARK: - Properties
     var accommodation: Accommodation?
     var passedImage: UIImage?
@@ -108,8 +110,10 @@ class DetailViewController: UIViewController {
             saveChangesButton.isHidden = true
         }
       
-        
-        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjuctForKeyword), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjuctForKeyword), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+
     }
     
     // MARK: - Show an alert if house is added or removed
@@ -126,6 +130,21 @@ class DetailViewController: UIViewController {
     // Dismiss keyboard
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc func adjuctForKeyword(notification: Notification){
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardScreenFrame = keyboardValue.cgRectValue
+        let keyboardViewFrame = view.convert(keyboardScreenFrame, to: view.window)
+        
+        if notification.name == UIResponder.keyboardWillHideNotification{
+            scrollView.contentInset = .zero
+        } else {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewFrame.height - view.safeAreaInsets.bottom , right: 0)
+        }
+        
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
     }
 }
 

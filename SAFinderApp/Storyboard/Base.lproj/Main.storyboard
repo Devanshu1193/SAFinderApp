@@ -228,6 +228,7 @@
                         <outlet property="houseImageView" destination="Jh5-GH-kMz" id="iAk-q6-cI2"/>
                         <outlet property="rentTextField" destination="e7N-wn-1Vh" id="wHc-21-wee"/>
                         <outlet property="saveChangesButton" destination="Oys-eQ-Ozh" id="blY-iX-P2P"/>
+                        <outlet property="scrollView" destination="aCw-gn-Cdq" id="doP-m3-u4K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M0h-o3-TXg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
