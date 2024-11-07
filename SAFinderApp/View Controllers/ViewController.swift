@@ -14,9 +14,7 @@ class ViewController: UIViewController {
     
     // MARK: - Properties
     var accommodations : [Accommodation] = []
-    var accommodationStore: AccommodationStore!
-    
-    
+        
     // MARK: - View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +26,9 @@ class ViewController: UIViewController {
         } else {
             return 
         }
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.createDataSnapshot()
     }
     
@@ -43,9 +43,13 @@ class ViewController: UIViewController {
     lazy var tableDataSource = UITableViewDiffableDataSource<Section, Accommodation>(tableView: tableView) {
         tableView, indexPath, itemIdentifier in
         let cell = tableView.dequeueReusableCell(withIdentifier: "houseCell", for: indexPath) as! AccommodationTableViewCell
-        cell.houseAddress.text = itemIdentifier.address
-    
         
+        let stored = App.accommodationStore.allHouses.first {
+            $0.id == itemIdentifier.id
+        }
+    
+        cell.houseAddress.text = stored?.address ?? itemIdentifier.address
+    
         // Fetch and set the movie poster image
         if let image = itemIdentifier.image {
             cell.houseImageView.setImage(url: image)
@@ -61,6 +65,7 @@ class ViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Accommodation>()
         snapshot.appendSections([.main])
         snapshot.appendItems(accommodations)
+        snapshot.reloadItems(accommodations)
         tableDataSource.apply(snapshot, animatingDifferences: true)
     }
     

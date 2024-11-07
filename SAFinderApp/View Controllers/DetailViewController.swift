@@ -29,11 +29,11 @@ class DetailViewController: UIViewController {
     @IBAction func saveChanges(_ sender: UIButton) {
         guard let accommodation = accommodation else { return }
         
-        App.accommodationStore.removeHouse(house: accommodation)
-        
         guard let rent = Double(rentTextField.text ?? "0") else {
             return
         }
+        
+        App.accommodationStore.removeHouse(house: accommodation)
         
         let newAccommodation = Accommodation(
             id: accommodation.id,
@@ -80,10 +80,21 @@ class DetailViewController: UIViewController {
         addressTextField.delegate = self
         rentTextField.delegate = self
         contactNumberTextField.delegate = self
-        descriptionTextField.delegate = self
-        
 
-        if let passedHouse = accommodation{
+        let bar = UIToolbar()
+        let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
+        bar.items = [done]
+        bar.sizeToFit()
+        descriptionTextField.inputAccessoryView = bar
+        
+        if let apiAccomodation = accommodation{
+            
+            let stored = App.accommodationStore.allHouses.first {
+                $0.id == apiAccomodation.id
+            }
+            
+            let passedHouse = stored ?? apiAccomodation
+            
             addressTextField.text = passedHouse.address
             rentTextField.text = "\(passedHouse.rent)"
             contactNumberTextField.text = "\(passedHouse.phone_number)"
@@ -114,6 +125,7 @@ class DetailViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(adjuctForKeyword), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjuctForKeyword), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
 
+        dismissKeyboard()
     }
     
     // MARK: - Show an alert if house is added or removed
@@ -149,14 +161,9 @@ class DetailViewController: UIViewController {
 }
 
 // MARK: - Extension
-extension DetailViewController: UITextFieldDelegate, UITextViewDelegate {
+extension DetailViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return true
-    }
-    
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        textView.resignFirstResponder()
         return true
     }
 }

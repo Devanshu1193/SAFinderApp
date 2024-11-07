@@ -30,7 +30,7 @@ class AccommodationStore {
     }
     
     func alreadyInList(house: Accommodation) -> Bool {
-        if houses.contains(house){
+        if (houses.contains { $0.id == house.id }) {
             return true
         } else {
             return false
