@@ -16,17 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="house.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cHS-18-GX2">
-                                <rect key="frame" x="96.666666666666686" y="326.33333333333331" width="200" height="199.33333333333331"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="cHS-18-GX2">
+                                <rect key="frame" x="46.666666666666657" y="276" width="300" height="300"/>
                                 <color key="tintColor" name="Secondary"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="3k2-GW-09O"/>
-                                    <constraint firstAttribute="height" constant="200" id="xJC-pu-QKR"/>
+                                    <constraint firstAttribute="width" constant="300" id="3k2-GW-09O"/>
+                                    <constraint firstAttribute="height" constant="300" id="xJC-pu-QKR"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="Primary"/>
+                        <color key="backgroundColor" name="myColorTwo"/>
                         <constraints>
                             <constraint firstItem="cHS-18-GX2" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="03O-57-s8a"/>
                             <constraint firstItem="cHS-18-GX2" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1yc-cA-kmE"/>
@@ -39,11 +39,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="house.fill" catalog="system" width="128" height="104"/>
-        <namedColor name="Primary">
-            <color red="0.28999999165534973" green="0.38400000333786011" blue="0.54100000858306885" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="logo" width="500" height="500"/>
         <namedColor name="Secondary">
+            <color red="0.9570000171661377" green="0.98400002717971802" blue="0.98400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="myColorTwo">
             <color red="0.9570000171661377" green="0.98400002717971802" blue="0.98400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>

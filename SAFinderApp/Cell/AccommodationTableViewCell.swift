@@ -17,7 +17,8 @@ class AccommodationTableViewCell: UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        houseImageView.layer.cornerRadius = 10 // Adjust radius
+        houseImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
