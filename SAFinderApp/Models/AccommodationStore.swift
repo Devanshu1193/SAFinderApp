@@ -11,7 +11,6 @@ import UIKit
 class AccommodationStore {
     
     // MARK: - Properties
-//    private var watchListMovies = Set<Movie>()
     private var houses: [Accommodation] = []
     
     var numHouses: Int {

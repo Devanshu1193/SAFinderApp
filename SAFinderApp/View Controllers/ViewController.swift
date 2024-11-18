@@ -23,17 +23,15 @@ class ViewController: UIViewController {
         
         if let url = createAccommodationURL(){
             fetchAccommodations(from: url)
-        } else {
-            return 
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.createDataSnapshot()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        createDataSnapshot()
     }
     
     // MARK: - Loading the images and accmmodation listings
-    
     func createAccommodationURL() -> URL? {
         let urlString = "https://dsuthar.scweb.ca/ios/newApi.json"
         return URL(string: urlString)
@@ -54,10 +52,7 @@ class ViewController: UIViewController {
         // Fetch and set the movie poster image
         if let image = itemIdentifier.image {
             cell.houseImageView.setImage(url: image)
-            
         }
-        
-        
         return cell
     }
     
@@ -104,7 +99,6 @@ class ViewController: UIViewController {
                 }catch{
                     print("A decoding error has occurred \(error.localizedDescription)")
                 }
-                
             }
         }
         accommodationTask.resume()
@@ -123,8 +117,6 @@ class ViewController: UIViewController {
         let destinationVC = segue.destination as! DetailViewController
         destinationVC.accommodation = stored ?? selectedAccommodation
     }
-    
-
 }
 
 // MARK: - Extensions
@@ -164,7 +156,6 @@ extension UIImageView {
                     self.image = image
                 }
             }
-            
         }
         imageFetchTask.resume()
     }

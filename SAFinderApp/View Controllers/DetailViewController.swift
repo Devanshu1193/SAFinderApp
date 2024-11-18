@@ -17,7 +17,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet weak var saveChangesButton: UIButton!
     @IBOutlet weak var favouriteButton: UIBarButtonItem!
-    
     @IBOutlet weak var scrollView: UIScrollView!
     
     // MARK: - Properties
@@ -46,12 +45,9 @@ class DetailViewController: UIViewController {
         
         App.accommodationStore.addNewHouse(house: newAccommodation)
         App.accommodationStore.saveHouses()
-        
         showAlert(withMessage: "Changes have been saved!", andTitle: "Changes Saved")
-        
         navigationController?.popViewController(animated: true)
     }
-    
     
     @IBAction func addToFavourites(_ sender: UIBarButtonItem) {
         guard let passedHouse = accommodation else { return }
@@ -59,7 +55,6 @@ class DetailViewController: UIViewController {
         //TODO: - Save Changes and update it to your API data
         if App.accommodationStore.alreadyInList(house: passedHouse){
             App.accommodationStore.removeHouse(house: passedHouse)
-            
             showAlert(withMessage: "\(passedHouse.address) has been removed from your favourites.", andTitle: "Removed from favourites.")
             favouriteButton.image = UIImage(systemName: "heart")
         } else {
@@ -67,9 +62,7 @@ class DetailViewController: UIViewController {
             showAlert(withMessage: "\(passedHouse.address) has been added to your favourites.", andTitle: "Added to favourites.")
             favouriteButton.image = UIImage(systemName: "heart.fill")
         }
-        
         App.accommodationStore.saveHouses()
-        
     }
     
     
@@ -83,16 +76,13 @@ class DetailViewController: UIViewController {
         addressTextField.delegate = self
         rentTextField.delegate = self
         contactNumberTextField.delegate = self
-        descriptionTextField.isScrollEnabled = true
 
         let bar = UIToolbar()
         let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
         bar.items = [done]
         bar.sizeToFit()
-        descriptionTextField.inputAccessoryView = bar
         
         if let apiAccomodation = accommodation{
-            
             let passedHouse = apiAccomodation
             
             addressTextField.text = passedHouse.address
@@ -109,7 +99,7 @@ class DetailViewController: UIViewController {
             } else {
                 favouriteButton.image = UIImage(systemName: "heart")
             }
-            
+    
             houseImageView.image = passedImage
         }
         
@@ -117,8 +107,12 @@ class DetailViewController: UIViewController {
             addressTextField.isUserInteractionEnabled = false
             rentTextField.isUserInteractionEnabled = false
             contactNumberTextField.isUserInteractionEnabled = false
-            descriptionTextField.isUserInteractionEnabled = false
+            descriptionTextField.isEditable = false
             saveChangesButton.isHidden = true
+        } else {
+            descriptionTextField.inputAccessoryView = bar
+            rentTextField.inputAccessoryView = bar
+            contactNumberTextField.inputAccessoryView = bar
         }
       
         let notificationCenter = NotificationCenter.default
@@ -134,7 +128,6 @@ class DetailViewController: UIViewController {
         houseImageView.addGestureRecognizer(doubleTapGesture)
     }
     
-    
     // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ImageViewController {
@@ -149,7 +142,6 @@ class DetailViewController: UIViewController {
             _ in
             self.navigationController?.popViewController(animated: true)
         })
-        
         present(alert, animated: true)
     }
     
@@ -169,7 +161,6 @@ class DetailViewController: UIViewController {
         } else {
             scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewFrame.height - view.safeAreaInsets.bottom , right: 0)
         }
-        
         scrollView.scrollIndicatorInsets = scrollView.contentInset
     }
     

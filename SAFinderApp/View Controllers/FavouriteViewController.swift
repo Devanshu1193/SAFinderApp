@@ -25,7 +25,6 @@ class FavouriteViewController: UIViewController {
         if let image = accommodation.image {
             cell.houseImageViewCell.setImage(url: image)
         }
-                
         return cell
     }
     
@@ -38,7 +37,6 @@ class FavouriteViewController: UIViewController {
         collectionViewDataSource.apply(snapshot)
     }
     
-    
     // MARK: - View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,14 +45,11 @@ class FavouriteViewController: UIViewController {
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         favCollectionView.addGestureRecognizer(longPressGesture)
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.createSnapshot()
     }
-    
-    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,7 +62,6 @@ class FavouriteViewController: UIViewController {
         destinationVC?.editInfo = true
         
         destinationVC?.passedImage = App.accommodationStore.fetchImage(withIdentifier: "\(accommodation.id)")
-        
     }
     
     // MARK: - Gestures
@@ -89,9 +83,6 @@ class FavouriteViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true)
     }
-    
-    
-    
 }
 
 // MARK: - Extension

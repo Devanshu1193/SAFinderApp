@@ -19,12 +19,10 @@ class ImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
        // Set the image
         houseImage.image = image
         houseImage.contentMode = .scaleAspectFit
         houseImage.isUserInteractionEnabled = true
-        
         
         // Add Pinch Gesture
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
@@ -41,11 +39,10 @@ class ImageViewController: UIViewController {
         guard let imageView = sender.view else { return }
         
         imageView.transform = imageView.transform.scaledBy(x: sender.scale, y: sender.scale)
-        sender.scale = 1.0  // Reset the scale to avoid compounding
+        sender.scale = 1.0 
     }
     
     @objc func handleSwipeGesture(_ sender: UISwipeGestureRecognizer) {
-        // Dismiss the view controller on swipe down
         navigationController?.popViewController(animated: true)
     }
 

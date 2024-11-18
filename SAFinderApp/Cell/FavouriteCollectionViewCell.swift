@@ -10,7 +10,5 @@ import UIKit
 class FavouriteCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Outlets
-    
     @IBOutlet weak var houseImageViewCell: UIImageView!
-    
 }
