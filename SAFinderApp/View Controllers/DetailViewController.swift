@@ -93,10 +93,6 @@ class DetailViewController: UIViewController {
         
         if let apiAccomodation = accommodation{
             
-            let stored = App.accommodationStore.allHouses.first {
-                $0.id == apiAccomodation.id
-            }
-            
             let passedHouse = apiAccomodation
             
             addressTextField.text = passedHouse.address

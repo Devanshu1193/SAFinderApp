@@ -115,8 +115,12 @@ class ViewController: UIViewController {
         guard let selectedIndex = tableView.indexPathForSelectedRow else { return }
         let selectedAccommodation = accommodations[selectedIndex.row]
         
+        let stored = App.accommodationStore.allHouses.first {
+            $0.id == selectedAccommodation.id
+        }
+        
         let destinationVC = segue.destination as! DetailViewController
-        destinationVC.accommodation = selectedAccommodation
+        destinationVC.accommodation = stored ?? selectedAccommodation
     }
     
 

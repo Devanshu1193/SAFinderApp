@@ -239,11 +239,39 @@
                         <outlet property="rentTextField" destination="e7N-wn-1Vh" id="wHc-21-wee"/>
                         <outlet property="saveChangesButton" destination="Oys-eQ-Ozh" id="blY-iX-P2P"/>
                         <outlet property="scrollView" destination="aCw-gn-Cdq" id="doP-m3-u4K"/>
+                        <segue destination="UvI-Ab-4hl" kind="show" identifier="viewImage" id="9G4-HD-ehJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M0h-o3-TXg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3082" y="-2"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="xBA-EU-ITh">
+            <objects>
+                <viewController id="UvI-Ab-4hl" customClass="ImageViewController" customModule="SAFinderApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="okp-sn-Yfj">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-kb-kzh">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Q7A-V2-emw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oDq-kb-kzh" firstAttribute="top" secondItem="Q7A-V2-emw" secondAttribute="top" id="Fed-bj-eQm"/>
+                            <constraint firstItem="Q7A-V2-emw" firstAttribute="trailing" secondItem="oDq-kb-kzh" secondAttribute="trailing" id="Y3j-zQ-tDS"/>
+                            <constraint firstItem="oDq-kb-kzh" firstAttribute="leading" secondItem="Q7A-V2-emw" secondAttribute="leading" id="rh3-jC-ep0"/>
+                            <constraint firstItem="Q7A-V2-emw" firstAttribute="bottom" secondItem="oDq-kb-kzh" secondAttribute="bottom" id="wvy-CY-DYu"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="yib-qW-P43"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WZ5-6Q-GoW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4019" y="-2"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="FEh-LM-O74">
