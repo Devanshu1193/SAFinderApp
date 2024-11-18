@@ -36,14 +36,23 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfv-tb-M0a">
-                                                    <rect key="frame" x="99.999999999999986" y="10" width="252.66666666666663" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="99.999999999999986" y="9.9999999999999982" width="252.66666666666663" height="26.333333333333329"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qDf-sf-sfE" userLabel="House Rent">
+                                                    <rect key="frame" x="99.999999999999986" y="41.333333333333336" width="252.66666666666663" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="qDf-sf-sfE" firstAttribute="top" secondItem="Mfv-tb-M0a" secondAttribute="bottom" constant="5" id="6H9-a8-WON"/>
                                                 <constraint firstItem="yTE-Ea-3nW" firstAttribute="leading" secondItem="YeL-wp-fj2" secondAttribute="leading" constant="10" id="FCv-gQ-fDd"/>
+                                                <constraint firstItem="qDf-sf-sfE" firstAttribute="leading" secondItem="yTE-Ea-3nW" secondAttribute="trailing" constant="10" id="G6V-WY-nvo"/>
+                                                <constraint firstAttribute="trailing" secondItem="qDf-sf-sfE" secondAttribute="trailing" constant="10" id="Pio-cd-VRO"/>
                                                 <constraint firstItem="Mfv-tb-M0a" firstAttribute="top" secondItem="YeL-wp-fj2" secondAttribute="top" constant="10" id="QXN-VW-eut"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yTE-Ea-3nW" secondAttribute="bottom" constant="10" id="Xfj-ue-UYp"/>
                                                 <constraint firstItem="Mfv-tb-M0a" firstAttribute="leading" secondItem="yTE-Ea-3nW" secondAttribute="trailing" constant="10" id="bV1-F2-Rs3"/>
@@ -54,6 +63,7 @@
                                         <connections>
                                             <outlet property="houseAddress" destination="Mfv-tb-M0a" id="xgA-S9-xmv"/>
                                             <outlet property="houseImageView" destination="yTE-Ea-3nW" id="3Bl-VQ-46c"/>
+                                            <outlet property="houseRent" destination="qDf-sf-sfE" id="8zk-dg-t8E"/>
                                             <segue destination="maZ-bg-LLW" kind="show" id="9VE-Qx-cNI"/>
                                         </connections>
                                     </tableViewCell>
@@ -364,6 +374,9 @@
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

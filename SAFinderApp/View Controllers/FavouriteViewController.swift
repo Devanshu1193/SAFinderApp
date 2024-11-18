@@ -70,6 +70,8 @@ class FavouriteViewController: UIViewController {
         
     }
     
+    // MARK: - Gestures
+    // Long Press Gesture - to remove house from the list
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer){
         let location = gesture.location(in: favCollectionView)
         
@@ -87,6 +89,8 @@ class FavouriteViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true)
     }
+    
+    
     
 }
 

@@ -49,6 +49,7 @@ class ViewController: UIViewController {
         }
     
         cell.houseAddress.text = stored?.address ?? itemIdentifier.address
+        cell.houseRent.text = "$" + String(format: "%.2f", stored?.rent ?? itemIdentifier.rent)
     
         // Fetch and set the movie poster image
         if let image = itemIdentifier.image {
@@ -126,7 +127,16 @@ extension ViewController: UITableViewDelegate{
     // Handle new row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-      
+    }
+    
+    // MARK: - A Custom Slide in Animation
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let initialTransform = CGAffineTransform(translationX: -tableView.bounds.width, y: 0)
+        cell.transform = initialTransform
+        
+        UIView.animate(withDuration: 0.5, delay: 0.05 * Double(indexPath.row),options: [.curveEaseInOut], animations: {
+            cell.transform = CGAffineTransform.identity
+        }, completion: nil)
     }
 }
 

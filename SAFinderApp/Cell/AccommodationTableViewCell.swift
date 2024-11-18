@@ -12,6 +12,7 @@ class AccommodationTableViewCell: UITableViewCell{
     // MARK: - Outlets
     
     @IBOutlet weak var houseAddress: UILabel!
+    @IBOutlet weak var houseRent: UILabel!
     @IBOutlet weak var houseImageView: UIImageView!
     
     override func awakeFromNib() {
