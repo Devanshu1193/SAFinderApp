@@ -126,6 +126,20 @@ class DetailViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(adjuctForKeyword), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
 
         dismissKeyboard()
+        
+        // Double Tap Gesture - to see image
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTapGesture.numberOfTapsRequired = 2
+        houseImageView.isUserInteractionEnabled = true
+        houseImageView.addGestureRecognizer(doubleTapGesture)
+    }
+    
+    
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ImageViewController {
+            destination.image = passedImage
+        }
     }
     
     // MARK: - Show an alert if house is added or removed
@@ -157,6 +171,16 @@ class DetailViewController: UIViewController {
         }
         
         scrollView.scrollIndicatorInsets = scrollView.contentInset
+    }
+    
+    // MARK: - Double-tap Gesture
+    @objc func handleDoubleTap(){
+        guard let image = houseImageView.image else {
+            print("No image to pass")
+            return
+        }
+        passedImage = image
+        performSegue(withIdentifier: "viewImage", sender: nil)
     }
 }
 

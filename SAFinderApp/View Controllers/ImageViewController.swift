@@ -8,22 +8,45 @@
 import UIKit
 
 class ImageViewController: UIViewController {
-
+    
+    // MARK: - Outlets
+    @IBOutlet weak var houseImage: UIImageView!
+    
+    //MARK: - Properties
+    var image: UIImage?
+    var accommodation: Accommodation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        
+       // Set the image
+        houseImage.image = image
+        houseImage.contentMode = .scaleAspectFit
+        houseImage.isUserInteractionEnabled = true
+        
+        
+        // Add Pinch Gesture
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
+        houseImage.addGestureRecognizer(pinchGesture)
+        
+        // Add Swipe Gesture
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+        swipeGesture.direction = .down
+        houseImage.addGestureRecognizer(swipeGesture)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - Gesture Handlers
+    @objc func handlePinchGesture(_ sender: UIPinchGestureRecognizer) {
+        guard let imageView = sender.view else { return }
+        
+        imageView.transform = imageView.transform.scaledBy(x: sender.scale, y: sender.scale)
+        sender.scale = 1.0  // Reset the scale to avoid compounding
     }
-    */
+    
+    @objc func handleSwipeGesture(_ sender: UISwipeGestureRecognizer) {
+        // Dismiss the view controller on swipe down
+        navigationController?.popViewController(animated: true)
+    }
 
 }
