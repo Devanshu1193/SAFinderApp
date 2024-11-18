@@ -51,7 +51,7 @@ class FavouriteViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        createSnapshot()
+        self.createSnapshot()
     }
     
     

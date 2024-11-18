@@ -47,6 +47,8 @@ class DetailViewController: UIViewController {
         App.accommodationStore.addNewHouse(house: newAccommodation)
         App.accommodationStore.saveHouses()
         
+        showAlert(withMessage: "Changes have been saved!", andTitle: "Changes Saved")
+        
         navigationController?.popViewController(animated: true)
     }
     
