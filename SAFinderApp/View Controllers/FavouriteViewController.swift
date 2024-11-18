@@ -10,7 +10,9 @@ import UIKit
 class FavouriteViewController: UIViewController {
     
     // MARK: - Properties
-    //    var accommoation: [Accommodation] = []
+    var accommodations: [Accommodation] = []
+    var accommodation: Accommodation?
+    
     
     // MARK: - Outlets
     @IBOutlet weak var favCollectionView: UICollectionView!
@@ -42,11 +44,16 @@ class FavouriteViewController: UIViewController {
         super.viewDidLoad()
         
         favCollectionView.delegate = self
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        favCollectionView.addGestureRecognizer(longPressGesture)
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         createSnapshot()
     }
+    
     
     
     // MARK: - Navigation
@@ -61,6 +68,24 @@ class FavouriteViewController: UIViewController {
         
         destinationVC?.passedImage = App.accommodationStore.fetchImage(withIdentifier: "\(accommodation.id)")
         
+    }
+    
+    @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer){
+        let location = gesture.location(in: favCollectionView)
+        
+        guard let indexPath = favCollectionView.indexPathForItem(at: location),
+              let accommodation = collectionViewDataSource.itemIdentifier(for: indexPath),
+              gesture.state == .began else { return }
+        
+        let alert = UIAlertController(title: "Remove from Favourites?", message: "Do you want to remove \(accommodation.address) from your favourites?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive) { _ in
+            App.accommodationStore.removeHouse(house: accommodation)
+            App.accommodationStore.saveHouses()
+            self.createSnapshot()
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
     
 }

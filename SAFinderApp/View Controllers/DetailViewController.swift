@@ -62,6 +62,7 @@ class DetailViewController: UIViewController {
             favouriteButton.image = UIImage(systemName: "heart")
         } else {
             App.accommodationStore.addNewHouse(house: passedHouse)
+            showAlert(withMessage: "\(passedHouse.address) has been added to your favourites.", andTitle: "Added to favourites.")
             favouriteButton.image = UIImage(systemName: "heart.fill")
         }
         
@@ -80,6 +81,7 @@ class DetailViewController: UIViewController {
         addressTextField.delegate = self
         rentTextField.delegate = self
         contactNumberTextField.delegate = self
+        descriptionTextField.isScrollEnabled = true
 
         let bar = UIToolbar()
         let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
@@ -93,7 +95,7 @@ class DetailViewController: UIViewController {
                 $0.id == apiAccomodation.id
             }
             
-            let passedHouse = stored ?? apiAccomodation
+            let passedHouse = apiAccomodation
             
             addressTextField.text = passedHouse.address
             rentTextField.text = "\(passedHouse.rent)"
