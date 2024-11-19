@@ -16,6 +16,7 @@ class ImageViewController: UIViewController {
     var image: UIImage?
     var accommodation: Accommodation?
     
+    // MARK: - View Method
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +35,7 @@ class ImageViewController: UIViewController {
         houseImage.addGestureRecognizer(swipeGesture)
     }
     
-    // MARK: - Gesture Handlers
+    // MARK: - Pinch Gesture
     @objc func handlePinchGesture(_ sender: UIPinchGestureRecognizer) {
         guard let imageView = sender.view else { return }
         
@@ -42,6 +43,7 @@ class ImageViewController: UIViewController {
         sender.scale = 1.0 
     }
     
+    // MARK: - Swipe Gesture
     @objc func handleSwipeGesture(_ sender: UISwipeGestureRecognizer) {
         navigationController?.popViewController(animated: true)
     }

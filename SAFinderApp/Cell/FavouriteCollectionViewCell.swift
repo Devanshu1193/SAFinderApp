@@ -12,6 +12,8 @@ class FavouriteCollectionViewCell: UICollectionViewCell {
     // MARK: - Outlets
     @IBOutlet weak var houseImageViewCell: UIImageView!
     
+    
+    // MARK: - Initialization
     override func awakeFromNib() {
         super.awakeFromNib()
         houseImageViewCell.layer.cornerRadius = 10

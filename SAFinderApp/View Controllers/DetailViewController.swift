@@ -20,18 +20,21 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
     // MARK: - Properties
-    var accommodation: Accommodation?
-    var passedImage: UIImage?
+    var accommodation: Accommodation? // Stores accommodation details passed from the previous view
+    var passedImage: UIImage?  // Stores the image of the accommodation
     var editInfo = false
     
     // MARK: - Actions
+    // Action to save changes made to the accommodation details
     @IBAction func saveChanges(_ sender: UIButton) {
         guard let accommodation = accommodation else { return }
         
+        // Ensure rent is a valid number
         guard let rent = Double(rentTextField.text ?? "0") else {
             return
         }
         
+        // Remove the existing accommodation and replace it with updated details
         App.accommodationStore.removeHouse(house: accommodation)
         
         let newAccommodation = Accommodation(
@@ -49,10 +52,11 @@ class DetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    // Action to add or remove the accommodation from the favourites list
     @IBAction func addToFavourites(_ sender: UIBarButtonItem) {
         guard let passedHouse = accommodation else { return }
         
-        //TODO: - Save Changes and update it to your API data
+        // Check if the accommodation is already in favourites
         if App.accommodationStore.alreadyInList(house: passedHouse){
             App.accommodationStore.removeHouse(house: passedHouse)
             showAlert(withMessage: "\(passedHouse.address) has been removed from your favourites.", andTitle: "Removed from favourites.")
@@ -65,23 +69,27 @@ class DetailViewController: UIViewController {
         App.accommodationStore.saveHouses()
     }
     
-    
+    // MARK: - View Method
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Configure description text field with a border and rounded corners
         descriptionTextField.layer.cornerRadius = 8
         descriptionTextField.layer.borderWidth = 1
         descriptionTextField.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.2).cgColor
         
+        // Set text field delegates
         addressTextField.delegate = self
         rentTextField.delegate = self
         contactNumberTextField.delegate = self
 
+        // Add a toolbar with a "Done" button to dismiss the keyboard
         let bar = UIToolbar()
         let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
         bar.items = [done]
         bar.sizeToFit()
         
+        // Populate the UI with the passed accommodation data
         if let apiAccomodation = accommodation{
             let passedHouse = apiAccomodation
             
@@ -103,6 +111,7 @@ class DetailViewController: UIViewController {
             houseImageView.image = passedImage
         }
         
+        // Disable editing if `editInfo` is false
         if !editInfo {
             addressTextField.isUserInteractionEnabled = false
             rentTextField.isUserInteractionEnabled = false
@@ -115,6 +124,7 @@ class DetailViewController: UIViewController {
             contactNumberTextField.inputAccessoryView = bar
         }
       
+        // Register keyboard notifications for adjusting scroll view
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjuctForKeyword), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjuctForKeyword), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -129,13 +139,15 @@ class DetailViewController: UIViewController {
     }
     
     // MARK: - Segue
+    // Prepare for transitioning to the ImageViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ImageViewController {
             destination.image = passedImage
         }
     }
     
-    // MARK: - Show an alert if house is added or removed
+    // MARK: - Alert Func
+    // Show an alert if house is added or removed.
     func showAlert(withMessage message: String, andTitle title: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default){
@@ -150,6 +162,7 @@ class DetailViewController: UIViewController {
         view.endEditing(true)
     }
     
+    // Adjust the scroll view for the keyboard
     @objc func adjuctForKeyword(notification: Notification){
         guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
@@ -165,6 +178,7 @@ class DetailViewController: UIViewController {
     }
     
     // MARK: - Double-tap Gesture
+    // Handle double-tap gesture to view the image in full screen
     @objc func handleDoubleTap(){
         guard let image = houseImageView.image else {
             print("No image to pass")
@@ -177,6 +191,8 @@ class DetailViewController: UIViewController {
 
 // MARK: - Extension
 extension DetailViewController: UITextFieldDelegate {
+    
+    // Handle return key press on the keyboard.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

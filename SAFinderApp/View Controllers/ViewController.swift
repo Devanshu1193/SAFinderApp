@@ -18,9 +18,10 @@ class ViewController: UIViewController {
     // MARK: - View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         tableView.delegate = self
         
+        // Create the URL and fetch accommodations
         if let url = createAccommodationURL(){
             fetchAccommodations(from: url)
         }
@@ -33,31 +34,36 @@ class ViewController: UIViewController {
     
     // MARK: - Loading the images and accmmodation listings
     func createAccommodationURL() -> URL? {
+        // URL string pointing to the JSON API
         let urlString = "https://dsuthar.scweb.ca/ios/newApi.json"
         return URL(string: urlString)
     }
     
-    // MARK: - Datasource Methods and properties
+    // MARK: - TableView Datasource
+    // Diffable data source for handling table view data updates
     lazy var tableDataSource = UITableViewDiffableDataSource<Section, Accommodation>(tableView: tableView) {
         tableView, indexPath, itemIdentifier in
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "houseCell", for: indexPath) as! AccommodationTableViewCell
         
+        // Check if the accommodation is already stored
         let stored = App.accommodationStore.allHouses.first {
             $0.id == itemIdentifier.id
         }
     
+        // Set the accommodation details in the cell
         cell.houseAddress.text = stored?.address ?? itemIdentifier.address
         cell.houseRent.text = "$" + String(format: "%.2f", stored?.rent ?? itemIdentifier.rent)
     
-        // Fetch and set the movie poster image
+        // Fetch and set the accommodation image
         if let image = itemIdentifier.image {
             cell.houseImageView.setImage(url: image)
         }
         return cell
     }
     
-    
-    // Create a data snapshot and apply it to the table view's data source
+    // MARK: - Snapshot
+    // Create a data snapshot for the table view
     func createDataSnapshot(){
         var snapshot = NSDiffableDataSourceSnapshot<Section, Accommodation>()
         snapshot.appendSections([.main])
@@ -66,7 +72,7 @@ class ViewController: UIViewController {
         tableDataSource.apply(snapshot, animatingDifferences: true)
     }
     
-    // MARK: - Fetch Accommodation Listings from API
+    // MARK: - Fetch Accommodation Listings data from API
     func fetchAccommodations(from url: URL){
         print(url)
         let accommodationTask = URLSession.shared.dataTask(with: url){
@@ -75,6 +81,7 @@ class ViewController: UIViewController {
                 print("Error has occurred - \(dataError.localizedDescription)")
             }else {
                 do{
+                    // Ensure the received data is not nil
                     guard let someData = data else {
                         return
                     }
@@ -107,26 +114,30 @@ class ViewController: UIViewController {
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Get the selected accommodation
         guard let selectedIndex = tableView.indexPathForSelectedRow else { return }
         let selectedAccommodation = accommodations[selectedIndex.row]
         
+        // Check if the accommodation is already stored
         let stored = App.accommodationStore.allHouses.first {
             $0.id == selectedAccommodation.id
         }
         
+        // Pass the accommodation to the DetailViewController
         let destinationVC = segue.destination as! DetailViewController
         destinationVC.accommodation = stored ?? selectedAccommodation
     }
 }
 
-// MARK: - Extensions
+// MARK: - Delegate Methods
 extension ViewController: UITableViewDelegate{
     // Handle new row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // MARK: - A Custom Slide in Animation
+    // MARK: - A Custom Slide-In Animation
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let initialTransform = CGAffineTransform(translationX: -tableView.bounds.width, y: 0)
         cell.transform = initialTransform
@@ -139,13 +150,14 @@ extension ViewController: UITableViewDelegate{
 
 
 extension UIImageView {
-    // Custom function to fetch images from a URL and set them in the appropriate cell
+    // Fetch an image from a URL and set it in the image view
     func setImage(url: String) {
         guard let imageUrl =  URL(string: url) else {
             print("Can't make a url from \(url)")
             return
         }
         
+        // Download the image data
         let imageFetchTask = URLSession.shared.downloadTask(with: imageUrl){
             url, response, error in
             
